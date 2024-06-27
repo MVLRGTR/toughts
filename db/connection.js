@@ -1,9 +1,9 @@
 const {Sequelize} = require('sequelize')
 
-const sequelize = new Sequelize('toughts','toughts','pensamentos',{
-    host : '127.0.0.1',
-    dialect: 'mysql',
-    port :'3380'
+const sequelize = new Sequelize(`${process.env.MYSQL_DB}`,`${process.env.MYSQL_USER}`,`${process.env.MYSQL_PASSWORD}`,{
+    host : process.env.MYSQL_HOST,
+    dialect: process.env.DIALECT,
+    port :process.env.MYSQL_PORT
 })
 
 try{

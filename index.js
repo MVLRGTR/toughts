@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 const flash = require('express-flash')
-const port = 3000
+require('dotenv').config()
 
 const ToughtRouter = require('./routes/ToughtRouter')
 const ToughtController = require('./controllers/ToughtController')
@@ -71,8 +71,8 @@ app.use('/',AuthRoutes)
 
 
 db.sync().then(()=>{
-    app.listen(port,()=>{
-        console.log(`App rodando na porta : ${port}`)
+    app.listen(process.env.PORT,()=>{
+        console.log(`App rodando na porta : ${process.env.PORT}`)
     })
 }).catch(
     (erro)=>{
