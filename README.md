@@ -32,6 +32,7 @@ Rodando o Projeto:
     A ORM sequelize fara a criação de todas as tabelas e tudo para o banco esteja funcional.
 
 5º execute o comando npm run start no terminal
+
     observe o log para ver se está tudo ok.
     ESPERADO VER:
     Conexão com o banco feita com sucesso !!!
