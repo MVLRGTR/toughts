@@ -1,11 +1,13 @@
 Projeto Criado durante o curso Node.js do Zero a Maestria com diversos Projetos de Matheus Battisti
 
-O projeto tem como objetivo tarazer o aprendizado de uma arquitetura MVC completa , sendo p projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxe web de uma aplicação.
+O projeto tem como objetivo tarzer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
 
 Fucionalidades Adicionadas :
-[] : Comentarios
 [] : Data de criação do pensamento
-[] : Login com o google 
+[] : Data de edição do pensamento
+[] : Comentarios
+[] : validação de conta por e-mail
+[] : Esqueceu Login , enviando token por email
 
 Rodando o Projeto:
 
@@ -41,6 +43,6 @@ Rodando o Projeto:
     Executing (default): SHOW INDEX FROM `Users`
     Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Toughts' AND TABLE_SCHEMA = 'toughts'
     Executing (default): SHOW INDEX FROM `Toughts`
-    App rodando na porta : 3000 ou a que você escolehu 
+    App rodando na porta : 3000 ou a que você escolheu
 
 Projeto rodando !!!
