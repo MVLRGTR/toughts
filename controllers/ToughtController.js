@@ -19,7 +19,16 @@ module.exports = class ToughtsController {
             order = 'desc'
         }
 
-        const ToughtsAll = await Tought.findAll({
+        // const ToughtsAll = await Tought.findAll({
+        //     include: {
+        //         model: User,
+        //         attributes: ['id', 'name', 'email']
+        //     },
+        //     raw: true,
+        //     nest: true
+        // });
+
+        const Toughts = await Tought.findAll({
             include: User,
             where:{
                 title:{[Op.like] : `%${search}%`}
@@ -29,15 +38,40 @@ module.exports = class ToughtsController {
             nest : true
         })
 
-        // const ToughtsAll = await Tought.findAll({
-        //     include: {
-        //         model: User,
-        //         attributes: ['id', 'name', 'email']
-        //     },
-        //     raw: true,
-        //     nest: true
-        // });
-        // console.log(`ToughtsAll ${JSON.stringify(ToughtsAll, null, 2)}}`)
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); 
+            const day = String(date.getDate()).padStart(2, '0'); 
+          
+            return `${year}-${month}-${day}`;
+          }
+        
+        console.log(`Toughts ${JSON.stringify(Toughts, null, 2)}}`)
+
+        const ToughtsAll = Toughts.map((elemento)=>{
+            if(elemento.createdAt.getTime()===elemento.updatedAt.getTime()){
+                return {
+                    id: elemento.id,
+                    title: elemento.title,
+                    createdAt: formatDate(new Date(elemento.createdAt)),
+                    updatedAt :formatDate(new Date(elemento.updatedAt)),
+                    UserId: elemento.UserId,
+                    User: elemento.User
+                }
+            }else{
+                return {
+                    id: elemento.id,
+                    title: elemento.title,
+                    createdAt: elemento.createdAt,
+                    updatedAt :elemento.updatedAt,
+                    dateupdate:true,
+                    UserId: elemento.UserId,
+                    User: elemento.User
+                }
+            }
+        })
+
+        console.log(`ToughtsUpdateDate ${JSON.stringify(ToughtsAll, null, 2)}}`)
 
         let toughtsqti = ToughtsAll.length
 

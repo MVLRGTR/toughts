@@ -12,6 +12,7 @@ const AuthRoutes = require('./routes/AuthRoutes')
 //Models
 const tought = require('./models/Tought')
 const user = require('./models/User')
+const comment = require('./models/Comment')
 
 //Configuração express url e json
 const app = express()
@@ -70,6 +71,7 @@ app.use('/',AuthRoutes)
 
 
 
+//adicionar {force:true} dentro do sync para resetar o bacno de dados
 db.sync().then(()=>{
     app.listen(process.env.PORT,()=>{
         console.log(`App rodando na porta : ${process.env.PORT}`)
