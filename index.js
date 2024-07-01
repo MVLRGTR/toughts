@@ -8,6 +8,7 @@ require('dotenv').config()
 const ToughtRouter = require('./routes/ToughtRouter')
 const ToughtController = require('./controllers/ToughtController')
 const AuthRoutes = require('./routes/AuthRoutes')
+const CommentRouter = require('./routes/CommentRoutes')
 
 //Models
 const tought = require('./models/Tought')
@@ -68,6 +69,7 @@ app.use((req,res,next)=>{
 app.get('/',ToughtController.ShowAllToughts)
 app.use('/toughts',ToughtRouter)
 app.use('/',AuthRoutes)
+app.use('/comments',CommentRouter)
 
 
 

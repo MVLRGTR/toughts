@@ -1,0 +1,35 @@
+<section class="home-header">
+    {{!-- {{#with UserTought}}
+    <h1>{{title}}</h1>
+    {{/with}} --}}
+    <h1>"{{UserTought.title}}"</h1>
+    <p>Por : <strong>{{UserTought.User.name}}</strong></p>
+    {{#if UserTought.dateupdate}}
+    <p class="created">Criado em 1: {{UserTought.createdAt}} Editado em : {{UserTought.updatedAt}} </p>
+    {{else}}
+    <p class="created">Criado em : {{UserTought.createdAt}}</p>
+    {{/if}}
+
+</section>
+
+<div class="comment-button-container">
+    <a href="/comments/add/{{UserTought.id}}">
+        <button class="btn">Adicionar Comentário</button>
+    </a>
+</div>
+
+<section class="toughts-container">
+    {{#each ToughtComments}}
+    <figure>
+        <blockquote>
+            "{{this.comment}}"
+        </blockquote>
+        <figcaption>Por <span>{{this.User.name}}</span></figcaption>
+        {{#if this.dateupdate}}
+        <p class="created">Criado em : {{this.createdAt}} editado em : {{this.updatedAt}}</p>
+        {{else}}
+        <p class="created">Criado em : {{this.createdAt}}</p>
+        {{/if}}
+    </figure>
+    {{/each}}
+</section>

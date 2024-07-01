@@ -43,8 +43,8 @@ module.exports = class ToughtsController {
             const month = String(date.getMonth() + 1).padStart(2, '0'); 
             const day = String(date.getDate()).padStart(2, '0'); 
           
-            return `${year}-${month}-${day}`;
-          }
+            return `${day}-${month}-${year}`;
+        }
         
         console.log(`Toughts ${JSON.stringify(Toughts, null, 2)}}`)
 
@@ -54,7 +54,8 @@ module.exports = class ToughtsController {
                     id: elemento.id,
                     title: elemento.title,
                     createdAt: formatDate(new Date(elemento.createdAt)),
-                    updatedAt :formatDate(new Date(elemento.updatedAt)),
+                    updatedAt: formatDate(new Date(elemento.updatedAt)),
+                    dateupdate:false,
                     UserId: elemento.UserId,
                     User: elemento.User
                 }
@@ -62,8 +63,8 @@ module.exports = class ToughtsController {
                 return {
                     id: elemento.id,
                     title: elemento.title,
-                    createdAt: elemento.createdAt,
-                    updatedAt :elemento.updatedAt,
+                    createdAt: formatDate(new Date(elemento.createdAt)),
+                    updatedAt :formatDate(new Date(elemento.updatedAt)),
                     dateupdate:true,
                     UserId: elemento.UserId,
                     User: elemento.User

@@ -1,0 +1,21 @@
+<section class="home-header">
+    <h1>"{{UserTought.title}}"</h1>
+    <p>Por : <strong>{{UserTought.User.name}}</strong></p>
+    {{#if UserTought.dateupdate}}
+    <p class="created">Criado em : {{UserTought.createdAt}} Editado em : {{UserTought.updatedAt}} </p>
+    {{else}}
+    <p class="created">Criado em : {{UserTought.createdAt}}</p>
+    {{/if}}
+
+</section>
+
+<section>
+    <form action="/comments/add" method="post">
+        <div class="form-controlcomment">
+            <input type="hidden" name="toughtid" value="{{UserTought.id}}">
+            <input type="hidden" name="userid" value="{{idUser}}">
+            <textarea name="comment" id="comment" cols="70" rows="8"></textarea>
+            <input type="submit" value="Comentar">
+        </div>
+    </form>
+</section>

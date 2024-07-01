@@ -282,6 +282,50 @@ form input[type='submit']:hover,
     color: #f6982d;
 }
 
+.created{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.btnform{
+    transition: 0.5s;
+}
+
+.btnform:hover{
+    transform: scale(1.1);
+    color: white;
+    background-color: #f6982d;
+}
+
+
+/*COOMENT E COMMENTADD*/
+
+.form-controlcomment{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+}
+
+.form-controlcomment input{
+    width: 180px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.form-controlcomment textarea{
+    padding: 7px;
+    border-radius: 8px;
+    border: 1px solid #f6982d ;
+}
+
+.comment-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
 /* FOOTER */
 footer{
     height: 150px;

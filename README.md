@@ -1,13 +1,15 @@
 Projeto Criado durante o curso Node.js do Zero a Maestria com diversos Projetos de Matheus Battisti
 
-O projeto tem como objetivo tarzer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
+O projeto tem como objetivo trazer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
 
 Fucionalidades Adicionadas :
 [] : Data de criação do pensamento
 [] : Data de edição do pensamento
-[] : Comentarios
+[] : Comentários
+[] : Buscar um comentário
 [] : validação de conta por e-mail
 [] : Esqueceu Login , enviando token por email
+[] : Primeiro acesso com Token enviado por e-mail
 
 Rodando o Projeto:
 

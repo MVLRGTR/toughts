@@ -4,7 +4,7 @@ const User = require('./User')
 const Tought = require('./Tought')
 
 const Comment = db.define('Comment',{
-    coment:{
+    comment:{
         type:DataTypes.STRING,
         require:true
     }

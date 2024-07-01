@@ -1,11 +1,11 @@
 <div class="home-header">
     {{#if search}}
     <h1>Você buscou por : <span>{{search}}</span></h1>
-        {{#if toughtsqti}}
-            <p>Foram encontrados <span>{{toughtsqti}}</span> pensamentos relacionados a sua pesquisa</p>
-        {{else}}
-            <p>Nenhum pensamento encontrado para a pesquisa <span>{{search}}</span></p>
-        {{/if}}
+    {{#if toughtsqti}}
+    <p>Foram encontrados <span>{{toughtsqti}}</span> pensamentos relacionados a sua pesquisa</p>
+    {{else}}
+    <p>Nenhum pensamento encontrado para a pesquisa <span>{{search}}</span></p>
+    {{/if}}
     {{else}}
     <h1>Conheça alguns dos nosos <span>Pensamentos :</span></h1>
     {{/if}}
@@ -36,6 +36,12 @@
             "{{this.title}}"
         </blockquote>
         <figcaption>Por <span>{{this.User.name}}</span></figcaption>
+        {{#if this.dateupdate}}
+        <p class="created">Criado em : {{this.createdAt}} editado em : {{this.updatedAt}}</p>
+        {{else}}
+        <p class="created">Criado em : {{this.createdAt}}</p>
+        {{/if}}
+        <a href="/comments/{{this.id}}"><button class="btn">Comentários</button></a>
     </figure>
     {{/each}}
 </div>
