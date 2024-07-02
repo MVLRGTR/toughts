@@ -1,5 +1,6 @@
 const Tought = require('../models/Tought')
 const User = require('../models/User')
+const Comment =require('../models/Comment')
 const {Op} = require('sequelize')
 
 module.exports = class ToughtsController {
@@ -29,7 +30,10 @@ module.exports = class ToughtsController {
         // });
 
         const Toughts = await Tought.findAll({
-            include: User,
+            include:{
+                model:User,
+                attributes:["name"]
+            },
             where:{
                 title:{[Op.like] : `%${search}%`}
             },
@@ -72,7 +76,7 @@ module.exports = class ToughtsController {
             }
         })
 
-        console.log(`ToughtsUpdateDate ${JSON.stringify(ToughtsAll, null, 2)}}`)
+        console.log(`ToughtsAll ${JSON.stringify(ToughtsAll, null, 2)}}`)
 
         let toughtsqti = ToughtsAll.length
 
@@ -92,21 +96,36 @@ module.exports = class ToughtsController {
             plain: true,
         })
 
+        const CommemtDb = await Comment.findAll({
+            include:{
+                model:Tought,
+                attributes:["id","title"]
+            },
+            where:{UserId:Userid},
+            raw:true,
+            nest:true,
+        })
+
         if (!UserDb) {
             res.redirect('/login')
         }
 
-        // console.log(`UserDb : ${JSON.stringify(UserDb, null, 2)}`)
-
         const ToughtsUser = UserDb.Toughts.map((result) => result.dataValues)
 
         let emptyToughts =  false
+        let emptycomment = false
 
         if(ToughtsUser.length === 0 ){
             emptyToughts = true
         }
-       
-        res.render('toughts/dashboard', { ToughtsUser ,emptyToughts})
+        if(CommemtDb.length === 0){
+            emptycomment = true
+        }
+
+        console.log(`UserDb : ${JSON.stringify(UserDb, null, 2)}`)
+        console.log(`CommentDb : ${JSON.stringify(CommemtDb, null, 2)}`)
+
+        res.render('toughts/dashboard', { ToughtsUser  ,emptyToughts , CommemtDb , emptycomment})
     }
 
     static AddToughts(req, res) {
@@ -158,7 +177,7 @@ module.exports = class ToughtsController {
     static async EditToughtsSave(req, res) {
         const title = req.body.title
         const id = req.body.id
-        const IdUserReq = req.body.iduser
+        const IdUserReq = req.session.userid
 
         try {
             await Tought.update({ title }, { where: { id: id, UserId: IdUserReq } })
@@ -175,7 +194,7 @@ module.exports = class ToughtsController {
 
     static async DeleteTought(req, res) {
         const ToughtUserId = req.body.id
-        const IdUserReq = req.body.iduser
+        const IdUserReq = req.session.userid
 
         try {
             await Tought.destroy({ where: { id: ToughtUserId, UserId: IdUserReq } })

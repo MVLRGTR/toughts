@@ -1,0 +1,22 @@
+<section class="home-header">
+    <h1>"{{ToughtDb.title}}"</h1>
+    <p>Por : <strong>{{ToughtDb.User.name}}</strong></p>
+    {{#if CommentUser.dateupdate}}
+    <p class="created">Criado em : {{CommentUser.createdAt}} Editado em : {{CommentUser.updatedAt}} </p>
+    {{else}}
+    <p class="created">Criado em : {{CommentUser.createdAt}}</p>
+    {{/if}}
+
+</section>
+
+<section>
+    <form action="/comments/edit" method="post">
+        <div class="editcomment">
+            <input type="hidden" name="commentid" value="{{CommentUser.id}}">
+            {{!-- <input type="hidden" name="userid" value="{{idUser}}"> --}}
+            <p class="p">Seu comentário nesse pensamento :</p>
+            <textarea name="comment" id="comment" cols="50" rows="5" maxlength="500">{{CommentUser.comment}}</textarea>
+            <input type="submit" value="Editar">
+        </div>
+    </form>
+</section>

@@ -18,6 +18,11 @@
     </a>
 </div>
 
+{{#if empty}}
+<div style="display: flex;">
+    <h2 style="margin: auto;">Esse pensamento ainda não tem comentários</h2>
+</div>
+{{else}}
 <section class="toughts-container">
     {{#each ToughtComments}}
     <figure>
@@ -33,3 +38,4 @@
     </figure>
     {{/each}}
 </section>
+{{/if}}

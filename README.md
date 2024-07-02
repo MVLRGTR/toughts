@@ -3,13 +3,18 @@ Projeto Criado durante o curso Node.js do Zero a Maestria com diversos Projetos 
 O projeto tem como objetivo trazer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
 
 Fucionalidades Adicionadas :
-[] : Data de criação do pensamento
-[] : Data de edição do pensamento
-[] : Comentários
+[x] : Data de criação do pensamento
+[x] : Data de edição do pensamento
+[x] : Mostrar se um pensamento foi editado
+[x] : Comentários
+[x] : Data de criação do comentário
+[x] : Data de edição do comentário
+[x] : Mostrar se um comentário foi editado
+[x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post 
 [] : Buscar um comentário
-[] : validação de conta por e-mail
+[] : validação de conta por e-mail para primeiro acesso
 [] : Esqueceu Login , enviando token por email
-[] : Primeiro acesso com Token enviado por e-mail
+
 
 Rodando o Projeto:
 
@@ -38,6 +43,7 @@ Rodando o Projeto:
 5º execute o comando npm run start no terminal
 
     observe o log para ver se está tudo ok.
+
     ESPERADO VER:
     Conexão com o banco feita com sucesso !!!
     Executing (default): SELECT 1+1 AS result
@@ -45,6 +51,8 @@ Rodando o Projeto:
     Executing (default): SHOW INDEX FROM `Users`
     Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Toughts' AND TABLE_SCHEMA = 'toughts'
     Executing (default): SHOW INDEX FROM `Toughts`
+    Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'Comments' AND TABLE_SCHEMA = 'toughts'
+    Executing (default): SHOW INDEX FROM `Comments`
     App rodando na porta : 3000 ou a que você escolheu
 
 Projeto rodando !!!
