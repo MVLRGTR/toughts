@@ -89,7 +89,7 @@ module.exports = class ToughtsController {
 
     static async Dashboard(req, res) {
         const Userid = req.session.userid
-
+        console.log(`Valor do UserId : ${Userid}`)
         const UserDb = await User.findOne({
             where: { id: Userid, },
             include: Tought,

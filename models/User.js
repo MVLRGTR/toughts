@@ -13,6 +13,10 @@ const User = db.define('User',{
     password:{
         type:DataTypes.STRING,
         require:true
+    },
+    primarylogin:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
     }
 })
 

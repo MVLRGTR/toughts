@@ -14,6 +14,7 @@ const CommentRouter = require('./routes/CommentRoutes')
 const tought = require('./models/Tought')
 const user = require('./models/User')
 const comment = require('./models/Comment')
+const token = require('./models/Token')
 
 //Configuração express url e json
 const app = express()
