@@ -10,7 +10,8 @@ Fucionalidades Adicionadas :
 [x] : Data de criação do comentário
 [x] : Data de edição do comentário
 [x] : Mostrar se um comentário foi editado
-[x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post 
+[x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post
+[x] : Token para primeiro Login
 [] : Buscar um comentário
 [] : validação de conta por e-mail para primeiro acesso
 [] : Esqueceu Login , enviando token por email
