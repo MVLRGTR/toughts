@@ -24,30 +24,30 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 //public path
-app.use('/public',express.static('public'))
+app.use('/public', express.static('public'))
 
 //handlebars configuração padrão
 const hbs = exphbs.create({
-    partialsDir : ['views/partials']
+    partialsDir: ['views/partials']
 })
-app.engine('handlebars',hbs.engine)
-app.set('view engine' , 'handlebars')
+app.engine('handlebars', hbs.engine)
+app.set('view engine', 'handlebars')
 
-const db =  require('./db/connection')
+const db = require('./db/connection')
 
 //session middleware
 app.use(
     session({
-        name:'session',
-        secret:'nosso_secret',
+        name: 'session',
+        secret: 'nosso_secret',
         resave: false,
         saveUninitialized: false,
-        store : new FileStore({
-            logFn: function() {},
-            path: require('path').join(require('os').tmpdir(),'sessions') //falo aonde será gravado os arquivos temp das sessões
+        store: new FileStore({
+            logFn: function () { },
+            path: require('path').join(require('os').tmpdir(), 'sessions') //falo aonde será gravado os arquivos temp das sessões
         }),
-        cookie:{
-            secure:false,
+        cookie: {
+            secure: false,
             maxAge: 360000,
             expires: new Date(Date.now() + 360000),
             httpOnly: true
@@ -59,28 +59,42 @@ app.use(
 app.use(flash())
 
 //set session
-app.use((req,res,next)=>{
-    if(req.session.userid){
+app.use((req, res, next) => {
+    if (req.session.userid) {
         res.locals.session = req.session
     }
     next()
 })
 
 //Routes
-app.get('/',ToughtController.ShowAllToughts)
-app.use('/toughts',ToughtRouter)
-app.use('/',AuthRoutes)
-app.use('/comments',CommentRouter)
+app.get('/', ToughtController.ShowAllToughts)
+app.use('/toughts', ToughtRouter)
+app.use('/', AuthRoutes)
+app.use('/comments', CommentRouter)
 
+//Rotas de erro Padrão
+app.use((req, res, next) => {
+    res.status(404).render('404', { title: 'Page Not Found' })
+})
 
+app.use((erro, req, res, next) => {
+    console.error(erro.stack)
+    res.status(500).send('Volte mais tarde , erro na aplicação !!!')
+})
 
-//adicionar {force:true} dentro do sync para resetar o bacno de dados
-db.sync().then(()=>{
-    app.listen(process.env.PORT,()=>{
-        console.log(`App rodando na porta : ${process.env.PORT}`)
-    })
-}).catch(
-    (erro)=>{
-        console.log(`Erro ao conectar ao banco : ${erro}`)
-    }
-)
+// adicionar {force:true} dentro do sync para resetar o bacno de dados
+const ConnectionDb = () =>{
+    db.sync().then(() => {
+            app.listen(process.env.PORT, () => {
+                console.log(`App rodando na porta : ${process.env.PORT}`)
+            })
+        }).catch(
+            (erro) => {
+                console.log(`Erro ao conectar ao banco : ${erro}`)
+                setTimeout(ConnectionDb, 10000)
+                console.log('Tentando Reconexão com o Banco de Dados')
+            }
+    )
+}
+
+ConnectionDb()

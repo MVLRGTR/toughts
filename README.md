@@ -25,7 +25,7 @@ Rodando o Projeto:
 
 3º : criar um schema no banco de dados com o mesmo nome QUE SERÁ COLOCADO NO VARIAVEL DE AMBIENTE MYSQL_DB  por padrão utilize toughts.
 
-    querie para criação do schema : create schema toughts;
+    query para criação do schema : create schema toughts;
 
 4º fazer a configuração das variaveis de ambiente.
 
@@ -43,7 +43,7 @@ Rodando o Projeto:
 
     USE_EMAIL=true
 
-    Aqui abaixo de encontra as variaveis relacionadas ao servidor SMTP que fara o envio do e-mail , caso queira configurar deixarei um video da Cubos Academy que explica muito bem esse Processo , caso não queira fazer e só fazer o set da variavél USE_EMAIL=false 
+    Aqui abaixo de encontra as variaveis relacionadas ao servidor SMTP que fara o envio do e-mail , caso queira configurar deixarei um video da Cubos Academy que explica muito bem esse Processo , caso não queira , é só fazer o set da variavél USE_EMAIL=false 
 
     Video da Cubos Academy = https://www.youtube.com/watch?v=-ON-biiirnU&t=1330s
 

@@ -159,7 +159,7 @@ module.exports = class AuthController {
             }
 
             req.flash('message', 'Usuario criado com sucesso !!! , Por favor verifique seu E-mail para validar seu Usuario')
-            res.redirect('/login')
+            res.redirect('/loginprimary')
 
         } catch (erro) {
             console.log(erro)
