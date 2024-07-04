@@ -1,8 +1,10 @@
-const { where } = require('sequelize')
 const User = require('../models/User')
 const Token = require('../models/Token')
-const bcrypt = require('bcryptjs')
 const LoginAuth = require('../helpers/LoginAuth')
+const SendEmail =  require('../service/email/EmailSend')
+require('dotenv').config()
+const bcrypt = require('bcryptjs')
+
 
 module.exports = class AuthController {
 
@@ -18,8 +20,6 @@ module.exports = class AuthController {
 
         const ValidationLogin = await LoginAuth.LoginAuthentication(UserLogin.email, UserLogin.password)
         console.log(`Validationlogin : ${JSON.stringify(ValidationLogin, null, 2)}`)
-        // const Userdb = await User.findOne({ where: { email: UserLogin.email } })
-        // console.log(`UserDb : ${JSON.stringify(Userdb, null, 2)}`)
 
         if (ValidationLogin.validation) {
             const TokenPrimary = await User.findOne({
@@ -42,38 +42,6 @@ module.exports = class AuthController {
             res.render('auth/login')
             return
         }
-
-        // if(!Userdb){
-        //     req.flash('message','Usuario ou senha incorreto !!!')
-        //     res.render('auth/login')
-        //     return
-        // }
-
-        // const password = bcrypt.compareSync(UserLogin.password,Userdb.password)
-
-        // if(password){
-
-        //     const TokenPrimary = await User.findOne({
-        //         where:{id:Userdb.id},
-        //         attributes:["primarylogin"]
-        //     })
-
-        //     if(TokenPrimary.primarylogin===false){
-        //         req.flash('message','Para primeiro login Forneça o token enviado par o seu E-mail')
-        //         res.redirect('/loginprimary')
-        //         return
-        //     }else{
-        //         req.session.userid = Userdb.id
-        //         req.flash('message','Login realizado com sucesso')
-        //         res.redirect('/')
-        //         return
-        //     }
-
-        // }
-        // else{
-        //     req.flash('message','Usuario ou senha incorreto !!!')
-        //     res.redirect('/login')
-        // }
     }
 
     static AuthLoginPrimary(req, res) {
@@ -87,15 +55,13 @@ module.exports = class AuthController {
             password: req.body.password,
             token: Number(req.body.token)
         }
-
         const CheckPrimaryLogin = await User.findOne({
             where: { email: CheckLogin.email },
             attributes: ["primarylogin"]
         })
 
-        const Userdb = await User.findOne({ where: { email: CheckLogin.email } })
-        const password = bcrypt.compareSync(CheckLogin.password, Userdb.password)
-        if (!Userdb || !password) {
+        const ValidationLogin = await LoginAuth.LoginAuthentication(CheckLogin.email,CheckLogin.password)
+        if (!ValidationLogin.validation) {
             req.flash('message', 'Usuario ou senha incorreto !!!')
             res.render('auth/loginprimary')
             return
@@ -108,7 +74,7 @@ module.exports = class AuthController {
         }
 
         const TokenValueUser = await Token.findOne({
-            where: { UserId: Userdb.id },
+            where: { UserId: ValidationLogin.Userdb.id },
         })
 
         const primarylogin = true
@@ -117,9 +83,9 @@ module.exports = class AuthController {
             if (CheckLogin.token === TokenValueUser.token) {
                 User.update(
                     { primarylogin },
-                    { where: { id: Userdb.id } }
+                    { where: { id: ValidationLogin.Userdb.id } }
                 )
-                req.session.userid = Userdb.id
+                req.session.userid = ValidationLogin.Userdb.id
                 req.flash('message', 'Login realizado com sucesso')
                 res.redirect('/')
                 return
@@ -185,16 +151,12 @@ module.exports = class AuthController {
                 token: TokenPrimaryLogin,
                 UserId: newUser.id
             }
-            console.log(`Valor do token gerado : ${TokenPrimaryLogin}`)
+
             Token.create(TokenUser)
 
-            //Inicializando a sessão do Usuario newUser traz um retorno da ORM ao cadastrar UserPost no bd
-
-            // req.session.userid = newUser.id
-            // req.flash('message','Usuario criado com sucesso !!!')
-            // req.session.save(()=>{
-            //     res.redirect('/')
-            // })
+            if(process.env.USE_EMAIL){
+                SendEmail.EmailPrimaryLogin(UserPost.email,TokenPrimaryLogin)
+            }
 
             req.flash('message', 'Usuario criado com sucesso !!! , Por favor verifique seu E-mail para validar seu Usuario')
             res.redirect('/login')

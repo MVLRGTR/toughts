@@ -3,18 +3,18 @@ Projeto Criado durante o curso Node.js do Zero a Maestria com diversos Projetos 
 O projeto tem como objetivo trazer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
 
 Fucionalidades Adicionadas :
-[x] : Data de criação do pensamento
-[x] : Data de edição do pensamento
-[x] : Mostrar se um pensamento foi editado
-[x] : Comentários
-[x] : Data de criação do comentário
-[x] : Data de edição do comentário
-[x] : Mostrar se um comentário foi editado
-[x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post
-[x] : Token para primeiro Login
-[] : Buscar um comentário
-[] : validação de conta por e-mail para primeiro acesso
-[] : Esqueceu Login , enviando token por email
+    [x] : Data de criação do pensamento
+    [x] : Data de edição do pensamento
+    [x] : Mostrar se um pensamento foi editado
+    [x] : Comentários
+    [x] : Data de criação do comentário
+    [x] : Data de edição do comentário
+    [x] : Mostrar se um comentário foi editado
+    [x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post
+    [x] : Token para primeiro Login
+    [x] : validação de conta por e-mail para primeiro acesso
+    [] : Buscar um comentário
+    [] : Esqueceu Login , enviando token por email
 
 
 Rodando o Projeto:
@@ -40,6 +40,20 @@ Rodando o Projeto:
     MYSQL_DB= Nome do schema do banco de dados a ser utilizado por padrão utilize toughts 
 
     A ORM sequelize fara a criação de todas as tabelas e tudo para o banco esteja funcional.
+
+    USE_EMAIL=true
+
+    Aqui abaixo de encontra as variaveis relacionadas ao servidor SMTP que fara o envio do e-mail , caso queira configurar deixarei um video da Cubos Academy que explica muito bem esse Processo , caso não queira fazer e só fazer o set da variavél USE_EMAIL=false 
+
+    Video da Cubos Academy = https://www.youtube.com/watch?v=-ON-biiirnU&t=1330s
+
+    HOST_EMAIL=sandbox.smtp.mailtrap.io
+    PORT_EMAIL=2525
+    FROM_EMAIL=toughts@gmail.com
+    USER_EMAIL=
+    PASSWORD_EMAIL=
+
+    
 
 5º execute o comando npm run start no terminal
 
