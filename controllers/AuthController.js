@@ -4,6 +4,7 @@ const LoginAuth = require('../helpers/LoginAuth')
 const SendEmail =  require('../service/email/EmailSend')
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
+const { where } = require('sequelize')
 
 
 module.exports = class AuthController {
@@ -167,9 +168,103 @@ module.exports = class AuthController {
 
     }
 
+    static ForgotPassword(req,res){
+        res.render('auth/forgotpassword')
+    }
+
+    static async ForgotPasswordPost(req,res){
+        const email = req.body.email
+
+        function GenerateRandomFourDigitNumber() {
+            return Math.floor(1000 + Math.random() * 9000);
+        }
+
+        const UserDb = await User.findOne({
+            where:{email:email},
+            attributes:["id","name","email"]
+        })
+
+        if(!UserDb){
+            req.flash('message', 'Nenhuma conta encontrada com o e-mail fornecido !!!')
+            return  res.redirect('/forgotpassword')
+        }
+
+        const token = GenerateRandomFourDigitNumber()
+
+        await Token.update(
+            {token},
+            {where :{UserId:UserDb.id}}
+        )
+
+        if(process.env.USE_EMAIL){
+            SendEmail.EmailForgotPassword(UserDb.email,token)
+        }
+
+        req.flash('message', 'Verifique no seu e-mail instruções para recuperção da sua conta')
+        res.redirect('/forgotpasswordcheck')
+    }
+
+    static ForgotPasswordCheck(req,res){
+        res.render('auth/forgotpasswordcheck')
+    }
+
+    static async ForgotPasswordCheckPost(req,res){
+
+        console.log('entrou na controller CheckPost')
+
+        const UserCredentials = {
+            email : req.body.email,
+            token : req.body.token,
+            password : req.body.password,
+            confirmpassword : req.body.confirmpassword
+        }
+        
+        const UserDb = await User.findOne({
+            where : {email:UserCredentials.email},
+            attributes : ["id","name","email"]
+        })
+
+        if(!UserDb){
+            req.flash('message', 'E-mail incorreto , por favor verifique sua entrada')
+            return res.redirect('/forgotpasswordcheck')
+        }
+
+        const TokenUser = await Token.findOne({
+            where : {UserId:UserDb.id}
+        })
+
+        if(TokenUser.token != UserCredentials.token){
+            req.flash('message', 'Token incorreto , por favor verifique sua entrada')
+            return res.redirect('/forgotpasswordcheck')
+        }
+
+        if(UserCredentials.password != UserCredentials.confirmpassword){
+            req.flash('message', 'Confirmação de senha incorreto , por favor verifique sua entrada')
+            return res.redirect('/forgotpasswordcheck')
+        }
+
+        console.log(`UserCredentials ${JSON.stringify(UserCredentials, null, 2)}}`)
+        console.log(`UsertDb ${JSON.stringify(UserDb, null, 2)}}`)
+        console.log(`TokenUser ${JSON.stringify(TokenUser, null, 2)}}`)
+
+        const salt = await bcrypt.genSalt(10)
+        const password = bcrypt.hashSync(UserCredentials.password, salt)
+
+        await User.update(
+            {password},
+            {where :{id : UserDb.id}, email : UserCredentials.email}
+        )
+
+        req.flash('message', 'Senha recuperada com sucesso !!!')
+        res.redirect('/login')
+
+    }
+
     static Logout(req, res) {
         req.session.destroy()
         res.redirect('/login')
     }
+
+    
 
 }
