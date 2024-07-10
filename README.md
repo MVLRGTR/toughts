@@ -3,18 +3,18 @@ Projeto Criado durante o curso Node.js do Zero a Maestria com diversos Projetos 
 O projeto tem como objetivo trazer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
 
 Fucionalidades Adicionadas :
-    [x] : Data de criação do pensamento
-    [x] : Data de edição do pensamento
-    [x] : Mostrar se um pensamento foi editado
-    [x] : Comentários
-    [x] : Data de criação do comentário
-    [x] : Data de edição do comentário
-    [x] : Mostrar se um comentário foi editado
-    [x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post
-    [x] : Token para primeiro Login
-    [x] : validação de conta por e-mail para primeiro acesso
-    [] : Buscar um comentário
-    [] : Esqueceu Login , enviando token por email
+    1º  [x] : Data de criação do pensamento
+    2º  [x] : Data de edição do pensamento
+    3º  [x] : Mostrar se um pensamento foi editado
+    4º  [x] : Comentários
+    5º  [x] : Data de criação do comentário
+    6º  [x] : Data de edição do comentário
+    7º  [x] : Mostrar se um comentário foi editado
+    8º  [x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post
+    9º  [x] : Token para primeiro Login
+    10º [x] : validação de conta por e-mail para primeiro acesso
+    11º [] : Buscar um comentário
+    12º [] : Esqueceu Login , enviando token por email
 
 
 Rodando o Projeto:
@@ -46,6 +46,8 @@ Rodando o Projeto:
     Aqui abaixo de encontra as variaveis relacionadas ao servidor SMTP que fara o envio do e-mail , caso queira configurar deixarei um video da Cubos Academy que explica muito bem esse Processo , caso não queira , é só fazer o set da variavél USE_EMAIL=false 
 
     Video da Cubos Academy = https://www.youtube.com/watch?v=-ON-biiirnU&t=1330s
+
+    OBS : Nesse caso configuramos um e-mail não verdadeiro , mas sim para titulo de aprendizagem , caso queira fazer a adição de uma nova conta e so usar o mysqlworkbench ou outra ferramenta para ver a tabela token e fazer o cadastro do usuario.
 
     HOST_EMAIL=sandbox.smtp.mailtrap.io
     PORT_EMAIL=2525

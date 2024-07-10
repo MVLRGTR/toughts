@@ -12,16 +12,54 @@
 
 </section>
 
-<div class="comment-button-container">
+
+<div class="home-header" style="margin-bottom: 60px;">
+    {{#if search}}
+    <h1>Você buscou por : <span>{{search}}</span></h1>
+    {{#if commentsqti}}
+    <p>Foram encontrados <span>{{coomentsqti}}</span> comentários relacionados a sua pesquisa</p>
+    {{else}}
+    <p>Nenhum comentário encontrado para a pesquisa <span>{{search}}</span></p>
+    {{/if}}
+    {{else}}
+    <h1>Busque por algum <span>Comentário :</span></h1>
+    {{/if}}
+    <form action="/comments/{{UserTought.id}}" method="get">
+        <input type="text" name="search" placeholder="Busque um comentário">
+        <input type="submit" class="btn" value="buscar">
+    </form>
+    <div class="order-container">
+        <span>Ordenar por:</span>
+        <form action="/comments/{{UserTought.id}}" method="get">
+            <input type="hidden" name="search" value="{{this.search}}">
+            <input type="hidden" name="order" value="new">
+            <button type="submit"><i class="bi bi-arrow-up"></i></button>
+        </form>
+        <form action="/comments/{{UserTought.id}}" method="get">
+            <input type="hidden" name="search" value="{{this.search}}">
+            <input type="hidden" name="order" value="old">
+            <button type="submit"><i class="bi bi-arrow-down"></i></button>
+        </form>
+        <a href="/comments/{{UserTought.id}}">Limpar</a>
+    </div>
+</div>
+
+<div class="comment-button-container" style="margin-bottom: 50px;">
     <a href="/comments/add/{{UserTought.id}}">
         <button class="btn">Adicionar Comentário</button>
     </a>
 </div>
 
 {{#if empty}}
-<div style="display: flex;">
-    <h2 style="margin: auto;">Esse pensamento ainda não tem comentários</h2>
-</div>
+    {{#if search}}
+        <div style="display: flex;">
+            <h2 style="margin: auto;">Não foram encontrados comentários com base em sua pesquisa</h2>
+        </div>
+    {{else}}
+        <div style="display: flex;">
+            <h2 style="margin: auto;">Esse pensamento ainda não tem comentários</h2>
+        </div>
+    {{/if}}
 {{else}}
 <section class="toughts-container">
     {{#each ToughtComments}}

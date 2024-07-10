@@ -61,13 +61,13 @@ module.exports = class AuthController {
         })
 
         const ValidationLogin = await LoginAuth.LoginAuthentication(CheckLogin.email,CheckLogin.password)
+        
         if (!ValidationLogin.validation) {
             req.flash('message', 'Usuario ou senha incorreto !!!')
             res.render('auth/loginprimary')
             return
         }
         if (CheckLogin.token === 0) {
-            console.log('entrou')
             req.flash('message', 'O valor do token não pode ser nulo !!!')
             res.render('auth/loginprimary')
             return

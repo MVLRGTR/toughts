@@ -2,6 +2,7 @@ const Tought = require('../models/Tought')
 const User = require('../models/User')
 const Comment = require('../models/Comment')
 const { where } = require('sequelize')
+const {Op} = require('sequelize')
 
 module.exports = class CommentsController {
 
@@ -65,13 +66,31 @@ module.exports = class CommentsController {
 
     static async ShowCommentsToughtId(req, res) {
         const idtought = req.params.idtought
+        let search = ''
+        let searchActive = false
+        let order = 'desc'
+        
+        if(req.query.search){
+            search =  req.query.search
+            searchActive = true
+        }
+
+        if(req.query.order === 'old'){
+            order = 'asc'
+        }else{
+            order = 'desc'
+        }
 
         const ToughtCommentsdb = await Comment.findAll({
             include: {
                 model: User,
                 attributes: ["name"]
             },
-            where: { ToughtId: idtought },
+            where: { 
+                ToughtId: idtought,
+                comment : {[Op.like] : `%${search}%`}
+             },
+            order :[['createdAt',order]],
             raw: true,
             nest: true
         })
@@ -129,16 +148,17 @@ module.exports = class CommentsController {
         })
 
         let empty = true
-
+        let commentsqti = ToughtComments.length
         if (ToughtComments.length > 0) {
             empty = false
         }
 
+        console.log(`Valor do search : ${search}`)
         console.log(`Valor de comments ${JSON.stringify(ToughtComments, null, 2)}}`)
         console.log(`Valor de UserTought ${JSON.stringify(UserTought, null, 2)}}`)
         console.log(`Valor empty : ${empty}`)
 
-        res.render('toughts/comments', { ToughtComments, UserTought, empty })
+        res.render('toughts/comments', { ToughtComments, UserTought, empty,commentsqti,search })
     }
 
     static async EditComment(req, res) {
@@ -241,6 +261,21 @@ module.exports = class CommentsController {
             console.log(erro)
         }
 
+    }
+
+    static async SearchCommentsToughtId(req,res){
+        let search =''
+        let order ='desc'
+
+        if(req.query.search){
+            search = req.query.search
+        }
+
+        if(req.query.order === 'old'){
+            order = 'asc'
+        }else{
+            order = 'desc'
+        }
     }
 }
 
