@@ -1,6 +1,8 @@
 Projeto Criado durante o curso Node.js do Zero a Maestria com diversos Projetos de Matheus Battisti
 
-O projeto tem como objetivo trazer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso utilizamos o sequelize e toda parte de fluxo da arquitetura MVC.
+O projeto tem como objetivo trazer o aprendizado de uma arquitetura MVC completa , sendo o projeto composto por autenticação , CRUD completo do mysql , utilização de ORM que no caso é o sequelize e toda parte de fluxo da arquitetura MVC.
+
+algumas funções foram adicionadas por min , abaixo listarei elas
 
 Fucionalidades Adicionadas :
     1º  [x] : Data de criação do pensamento
@@ -13,8 +15,8 @@ Fucionalidades Adicionadas :
     8º  [x] : Adição do checkAuth (checagem de autenticaçaõ redundante) para todas as rotas de post
     9º  [x] : Token para primeiro Login
     10º [x] : validação de conta por e-mail para primeiro acesso
-    11º [] : Buscar um comentário
-    12º [] : Esqueceu Login , enviando token por email
+    11º [x] : Buscar um comentário
+    12º [x] : Esqueceu Login , enviando token por email
 
 
 Rodando o Projeto:
@@ -43,7 +45,7 @@ Rodando o Projeto:
 
     USE_EMAIL=true
 
-    Aqui abaixo de encontra as variaveis relacionadas ao servidor SMTP que fara o envio do e-mail , caso queira configurar deixarei um video da Cubos Academy que explica muito bem esse Processo , caso não queira , é só fazer o set da variavél USE_EMAIL=false 
+    Aqui abaixo se encontra as variaveis relacionadas ao servidor SMTP que fara o envio do e-mail , caso queira configurar deixarei um video da Cubos Academy que explica muito bem esse Processo , caso não queira , é só fazer o set da variavél USE_EMAIL=false 
 
     Video da Cubos Academy = https://www.youtube.com/watch?v=-ON-biiirnU&t=1330s
 
